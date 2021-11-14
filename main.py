@@ -113,7 +113,8 @@ class TaskRunner(metaclass=abc.ABCMeta):
         futures: list = []
         with MPIPoolExecutor() as executor:
             for arguments in arguments_grid:
-                task_args = np.array(list(arguments.values()))
+                # task_args = np.array(list(arguments.values()))
+                task_args = np.array([arguments[argument_name] for argument_name in self.arguments["name"]])
                 futures.append(executor.submit(self.run_task, task_args))
             while pending_tasks > 0:
                 future = next(concurrent.futures.as_completed(futures))
