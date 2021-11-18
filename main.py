@@ -79,7 +79,7 @@ class TaskRunner(metaclass=abc.ABCMeta):
             task_output_file_path: Path = task_output_directory / "o.txt"
         else:
             task_output_file_path: Path = self.output_directory / "o_{}.txt".format(task_signature)
-        with task_output_file_path.open(mode="w+") as task_output_file:
+        with task_output_file_path.open(mode="a+") as task_output_file:
             with subprocess.Popen(process_arguments,
                                   stdout=task_output_file,
                                   stderr=task_output_file,
